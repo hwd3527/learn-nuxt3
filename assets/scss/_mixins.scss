@@ -1,0 +1,782 @@
+@mixin clearfix() {
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+//media query
+@mixin mq($screen-width) {
+    @if $screen-width == 'small-screen-1' {
+        @media screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+    @if $screen-width == 'small-screen-2' {
+        @media screen and (min-width: 900px) and (max-width: 1199px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-3' {
+        @media screen and (min-width: 701px) and (max-width: 899px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-4' {
+        @media screen and (max-width: 700px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-5' {
+        @media screen and (max-width: 640px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-6' {
+        @media screen and (max-width: 580px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-7' {
+        @media screen and (max-width: 480px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-8' {
+        @media screen and (max-width: 420px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-9' {
+        @media screen and (max-width: 380px) {
+            @content;
+        }
+    }
+    @else if $screen-width == 'small-screen-10' {
+        @media screen and (max-width: 320px) {
+            @content;
+        }
+    }
+}
+
+////믹스인////
+//가상클래스(:befor, :after)를 이용한 삼각형;
+@mixin pseudo_arrow($way, $color, $length, $thickness) {  //방향, 색상, 화살표길이, 화살표두께
+    content:""; display:block; width:0; height:0; 
+    @if($way == 'left'){
+        border-left:none;
+        border-right:$length solid $color;
+        border-top:$thickness solid transparent;
+        border-bottom:$thickness solid transparent;
+    }@else if($way == 'right'){
+        border-left:$length solid $color;
+        border-right:none;        
+        border-top:$thickness solid transparent;
+        border-bottom:$thickness solid transparent;
+    }@else if($way == 'up'){
+        border-left:$thickness solid transparent;
+        border-right:$thickness solid transparent;
+        border-top:none;
+        border-bottom:$length solid $color;
+    }@else if($way == 'down'){
+        border-left:$thickness solid transparent;
+        border-right:$thickness solid transparent;
+        border-top:$length solid $color;
+        border-bottom:none;
+    }
+}
+
+//텍스트 몇줄 이상숨기고 ... 표시
+@mixin line_cut($line-clamp, $line-height) { //줄수, 한줄당높이;
+    overflow:hidden;  
+    text-overflow:ellipsis;     
+    max-width: 100%;      
+    white-space: normal;     
+    text-align: left;     
+    // word-wrap: break-word;    
+    display: -webkit-box;  
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:$line-clamp; 
+    max-height:$line-height * $line-clamp;   
+    line-height: $line-height;
+}
+
+//X 모양 만들기
+@mixin icon_x($color, $width, $height) {
+    &:before, &:after {
+        content:""; 
+        display:block; 
+        width:$width; 
+        height:$height; 
+        background:$color; 
+        position:absolute; 
+        left:50%; 
+        top:50%; 
+    }
+    &:before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &:after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+}
+
+//스프라이트 이미지 처리
+@mixin background($url, $x, $y, $width, $height) {
+    background-image: url($url);
+    background-position: ($x) ($y);
+    background-size: $width $height;
+}
+
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); /* IE8 */
+}
+
+//폰트사이즈 rem변경
+@function calculateRem($size) {
+    $remSize: $size / 10px;
+    @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+
+//그림자
+@mixin shadow( $off-y, $off-x, $blur, $color){ 
+    -moz-box-shadow: $off-y $off-x $blur $color; /* FF3.5+ */ 
+    -webkit-box-shadow: $off-y $off-x $blur $color; /* Saf3.0+, Chrome */ 
+    box-shadow: $off-y $off-x $blur $color; /* Opera 10.5, IE9 */ 
+}
+
+
+// 그라디언트
+@mixin linear-gradient($angle, $color-stops...) {
+    $_angle-with-vendor-prefix: "";
+    $_angle: "";
+    @if $angle == "to top" or $angle == "bottom" {
+        $_angle-with-vendor-prefix: bottom;
+        $_angle: to top;
+    } @else if $angle == "to right" or $angle == "left" {
+        $_angle-with-vendor-prefix: left;
+        $_angle: to right;
+    } @else if $angle == "to bottom" or $angle == "top" {
+        $_angle-with-vendor-prefix: top;
+        $_angle: to bottom;
+    } @else if $angle == "to left" or $angle == "right" {
+        $_angle-with-vendor-prefix: right;
+        $_angle: to left;
+    } @else if $angle == "to top right" or $angle == "bottom left" {
+        $_angle-with-vendor-prefix: bottom left;
+        $_angle: to top right;
+    } @else if $angle == "to bottom right" or $angle == "top left" {
+        $_angle-with-vendor-prefix: top left;
+        $_angle: to bottom right;
+    } @else if $angle == "to bottom left" or $angle == "top right" {
+        $_angle-with-vendor-prefix: top right;
+        $_angle: to bottom left;
+    } @else if $angle == "to top left" or $angle == "bottom right" {
+        $_angle-with-vendor-prefix: bottom right;
+        $_angle: to top left;
+    } @else {
+        $_angle-with-vendor-prefix: $angle % 360;
+        $_angle: (90 - $angle) % 360;
+    }
+    background: -webkit-linear-gradient($_angle-with-vendor-prefix, $color-stops);
+    background: -moz-linear-gradient($_angle-with-vendor-prefix, $color-stops);
+    background: -o-linear-gradient($_angle-with-vendor-prefix, $color-stops);
+    background: linear-gradient($_angle, $color-stops);
+}
+
+// filter
+//grayscale ex: fliter: grayscale(100%);
+//blur ex: filter: blur(2px);
+@mixin filter($filter-type, $filter-amount){
+	-webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+	-moz-filter: $filter-type+unquote('(#{$filter-amount})');
+	-ms-filter: $filter-type+unquote('(#{$filter-amount})');
+	-o-filter: $filter-type+unquote('(#{$filter-amount})');
+	filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
+// matrix
+@mixin matrix($a, $b, $c, $d, $f) {
+	-moz-transform: matrix($a, $b, $c, $d, #{$e}px, #{$f}px);
+	-o-transform: matrix($a, $b, $c, $d, $e, $f);
+	-ms-transform: matrix($a, $b, $c, $d, $e, $f);
+	-webkit-transform: matrix($a, $b, $c, $d, $e, $f);
+	transform: matrix($a, $b, $c, $d, $e, $f);
+}
+
+// border-radius
+@mixin border-radius($value: 3px){
+	-webkit-border-radius: $value;
+	-moz-border-radius: $value;
+	border-radius: $value;
+	//keeps background from busting out of border
+	-webkit-background-clip: padding-box;
+	-mox-background-clip: padding;
+	background-clip: padding-box;
+}
+
+//hidden
+@mixin visuallyhidden{
+	margin: -1px;
+	padding:0;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+	clip: rect(0 0 0 0);
+	clip: rect(0,0,0,0);
+	position:absolute;
+}
+
+//hide-text
+@mixin hide-text{
+	text-indent: -100%;
+	white-space: nowrap;
+	overflow: hidden;
+	display: block;
+}
+
+//clear-both
+@mixin clear-both{
+	content:'';
+	clear: both;
+	display: block;
+	height:0;
+}
+
+//text-truncate
+@mixin text-truncate{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+//animation
+@mixin keyframes($animation-name){
+	@-webkit-keyframes #{$animation-name}{
+		@content;
+	}
+	@-moz-keyframes #{$animation-name}{
+		@content;
+	}
+	@-ms-keyframes #{$animation-name}{
+		@content;
+	}
+	@-o-keyframes #{$animation-name}{
+		@content;
+	}
+	@keyframes #{$animation-name}{
+		@content;
+	}
+}
+@mixin animation($str){
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation:#{$str};
+}
+
+//Usage: @include transition(width, height 0.3s ease-in-out);
+//Output: -webkit-transition(width 0.2s, height 0.3s ease-in-out);
+// transition(width 0.2s, height 0.3s ease-in-out);
+//
+// Pass in any number of transitions
+@mixin transition($transitions...){
+	$unfoldedTransitions: ();
+	@each $transition in $transitions {
+		$unfoldedTransitions: append($unfoldedTransitions, unfoldTransition($transition), comma);
+	}
+	-webkit-transition:$unfoldedTransitions;
+	transition: $unfoldedTransitions;
+}
+@function unfoldTransition($transition){
+	//Default values
+	$property: all;
+	$duration: .2s;
+	$easing: null; //Browser default is ease, which is what we want
+	$delay: null; // Browser default is 0, which is what we want
+	$defaultProperties: ($property, $duration, $easing, $delay);
+	// Grab transition properties if they exist
+	$unfoldedTransition: ();
+	@for $i from 1 through length($defaultProperties){
+		$p: null;
+		@if $i <= length($transition){
+			$p: nth($transition, $i)
+		} @else {
+			$p: nth($defaultProperties, $i)
+		}
+		$unfoldedTransition: append($unfoldedTransition, $p);
+	}
+	@return $unfoldedTransition;
+}
+
+//transform style
+@mixin transform-style($type){
+	-webkit-transform-style: $type;
+	-moz-transform-style: $type;
+	-ms-transform-style: $type;
+	transform-style: $type;
+}
+
+//화살표그리기 bullet
+$sqrt_2: 1.41421356237;
+@mixin iconBullet($direction: 'up', $width: 50px, $height: 25px, $thick: 2px, $color: #222, 
+$display: inline-block, $position: relative){
+	position: $position;
+	display: $display;
+	width: $width;
+	height: $height;
+	overflow: hidden;	
+
+
+	@if ($direction == 'up' or $direction == 'down') {
+		$size: floor($width/$sqrt_2 - 2*$thick);
+		$rate: 2*$height/$width;
+		$margin-top : round($rate*$size/(2*$sqrt_2));
+
+		&:before {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			content: '';
+			width: $size;
+			height: $size;
+			@if ($rate == 1) {
+				transform: translate(-50%, -50%) rotate(45deg);
+			} @else {
+				transform: translate(-50%, -50%) scale(1, $rate) rotate(45deg);
+			}
+
+			@if ($direction == 'up') {
+				margin-top: $margin-top;
+				border-top: $thick solid $color;
+				border-left: $thick solid $color;
+			} @else if ($direction == 'down') {
+				margin-top: - $margin-top;
+				border-right: $thick solid $color;
+				border-bottom: $thick solid $color;
+			}
+		}
+	} @else if ($direction == 'left' or $direction == 'right'){
+		$size: floor($height/$sqrt_2 - 2*$thick);
+		$rate: 2*$width/$height;
+		$margin-left: round($rate*$size/(2*$sqrt_2));
+
+		&:before{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			content: '';
+			width: $size;
+			height: $size;
+			
+			@if ($rate == 1) {
+				transform: translate(-50%, -50%) rotate(45deg);
+			} @else {
+				transform: translate(-50%, -50%) scale(1, $rate) rotate(45deg);
+			}
+
+			@if($direction == 'left'){
+				margin-left: $margin-left;
+				border-left: $thick solid $color;
+				border-bottom: $thick solid $color;
+			} @else if($direction == 'right'){
+				margin-left: - $margin-left;
+				border-top: $thick solid $color;
+				border-right: $thick solid $color;
+			}
+		}
+	}
+}
+// .hasBg{
+// 	background-color: pink;
+// }
+// 기본형
+// .icon_bullet { 
+// 	@include iconBullet(); 
+// }
+  
+// 예시
+// .icon_bullet_ex1 { 
+// 	@include iconBullet($direction: 'left', $width: 30px, $height: 60px, $thick: 3px, $color: #666, $display: inline-block, $position: relative); 
+// }  
+// .icon_bullet_ex2 { 
+// 	@include iconBullet($direction: 'down', $width: 40px, $height: 40px, $thick: 5px, $color: #222, $display: inline-block, $position: relative); 
+// }  
+// .icon_bullet_ex3 { 
+// 	@include iconBullet($direction: 'right', $width: 40px, $height: 80px, $thick: 8px, $color: #222, $display: inline-block, $position: relative); 
+// 	&:before {
+// 	  box-shadow: 0 1px 4px 0 rgba(#000, 0.8);
+// 	}
+	
+// 	background-color: transparent;
+// }
+
+//X 그리기
+@mixin iconCancel($size: 21px, $thick: 2px, $color: #000, $padding: 0, 
+$display: inline-block, $position: relative){
+	position: $position;
+	display: $display;
+	width: $size + $padding*2;
+	height: $size + $padding*2;
+
+	&:before, &:after{
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: round($size*$sqrt_2 - $thick);
+		height: $thick;
+		background-color: $color;
+	}
+
+	&:before{
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+	&:after{
+		transform: translate(-50%, -50%) rotate(135deg);
+	}
+}
+// .hasBg{
+// 	background-color: pink;
+// }
+//기본형
+// .icon_cancel{
+// 	@include iconCancel();
+// }
+//예시
+// .icon_cancel_ex1{
+// 	@include iconCancel($size: 50px, $thick: 10px, $color: #666, 
+// 	$padding:0, $display:inline-block, $positoin:relative);
+// }
+// .icon_cancel_ex2{
+// 	@include iconCancel($size: 30px, $thick: 5px, $color: #000, $padding: 10px,
+// 	$display: inline-block, $position: relative);
+// }
+// .icon_cancel_ex3{
+// 	@include iconCancel($size: 20px, $thick: 2px, $color: #444, $padding: 15px,
+// 	$display: inline-block, $position: relative);
+// 	background-color: #ddd;
+// 	border-radius: 50%;
+// }
+
+//삼각형 화살표 그리기
+@mixin iconTriangle($direction: 'up', $width: 20px, $height: 10px,
+$color: #000, $display: inline-block){
+	display: $display;
+	width: $width;
+	height: $height;
+
+	&:before{
+		content: '';
+		display: block;
+
+		@if($direction == 'up'){
+			border-bottom: $height solid $color;
+			border-left: round($width/2) solid transparent;
+			border-right: round($width/2) solid transparent;
+		}
+		@else if($direction == 'down'){
+			border-top: $height solid $color;
+			border-left: round($width/2) solid transparent;
+			border-right: round($width/2) solid transparent;
+		}
+		@else if($direction == 'left'){
+			border-top: round($height/2) solid transparent;
+			border-bottom: round($height/2) solid transparent;
+			border-right: $width solid $color;
+		}
+		@else if($direction == 'right'){
+			border-top: round($height/2) solid transparent;
+			border-bottom: round($height/2) solid transparent;
+			border-left: $width solid $color;
+		}
+	}
+}
+// .hasBg{
+// 	background-color: pink;
+// }
+//기본형
+// .iconTriangle{
+// 	@include iconTriangle();
+// }
+//예시
+// .iconTriangleEx1{
+// 	@include iconTriangle($direction: 'down', $width: 30px, $height: 24px,
+// 	$color: #000, $display: inline-block);
+// }
+// .iconTriangleEx2{
+// 	@include iconTriangle($direction: 'right', $width: 30px, $height: 50px,
+// 	$color:#f00, $display: inline-block);
+// }
+
+//화살표그리기
+@mixin iconArrow($direction: 'up', $width: 50px, $height: 50px, $thick: 2px,
+$color: #222, $display: inline-block, $position: relative){
+	position: $position;
+	display: $display;
+	width: $width;
+	height: $height;
+
+	&:before{
+		content:'';
+		position:absolute;
+		border-top:$thick solid $color;
+		border-left:$thick solid $color;
+
+		@if($direction == 'up' or $direction == 'down'){
+			$size: round($width/$sqrt_2 - $thick);
+			left:50%;
+			width:$size;
+			height:$size;
+
+			@if($direction == 'up'){
+				top: round($width/2);
+				transform: translate(-50%, -50%) rotate(45deg);
+			} @else if($direction == 'down'){
+				bottom: round($width/2);
+				transform: translate(-50%, 50%) rotate(-135deg);
+			}
+		} @else if($direction == 'left' or $direction == 'right'){
+			$size: round($height/$sqrt_2 - $thick);
+			top:50%;
+			width:$size;
+			height:$size;
+
+			@if($direction == 'left'){
+				left: round($height/2);
+				transform: translate(-50%, -50%) rotate(-45deg);
+			} @else if($direction == 'right'){
+				right: round($height/2);
+				transform: translate(50%, -50%) rotate(135deg);
+			}
+		}
+	}
+	&:after{
+		content:'';
+		position:absolute;
+		background-color: $color;
+
+		@if($direction == 'up' or $direction == 'down'){
+			@if($direction == 'up'){
+				top: round($thick/$sqrt_2);
+			} @else if($direction == 'down'){
+				bottom: round($thick/$sqrt_2);
+			}
+
+			left: 50%;
+			width: $thick;
+			height: $height - round($thick/$sqrt_2);
+			transform: translate(-50%, 0);
+		}@else if($direction == 'left' or $direction == 'right'){
+			top: 50%;
+			@if($direction == 'left'){
+				left: round($thick/$sqrt_2);
+			} @else if($direction == 'right'){
+				right: round($thick/$sqrt_2);
+			}
+
+			width: $width - round($thick/$sqrt_2);
+			height: $thick;
+			transform: translate(0, -50%);
+		}
+	}
+}
+// .hasBg{
+// 	background-color: pink;
+// }
+//기본형
+// .iconArrow { 
+// 	@include iconArrow(); 
+// }
+//예시
+// .iconArrowEx1 { 
+// 	@include iconArrow($direction: 'down', $width: 40px, $height: 60px, $thick: 3px, $color: #666, $display: inline-block, $position: relative); 
+// }  
+// .iconArrowEx2 { 
+// 	@include iconArrow($direction: 'left', $width: 100px, $height: 45px, $thick: 10px, $color: #f00, $display: inline-block, $position: relative); 
+// }  
+// .iconArrowEx3 { 
+// 	@include iconArrow($direction: 'right', $width: 30px, $height: 20px, $thick: 2px, $color: #222, $display: inline-block, $position: relative); 
+// }
+
+//햄버거메뉴
+// button{
+// 	margin:0;
+// 	padding:0;
+// 	background-color: transparent;
+// 	border:0;
+// }
+@mixin iconMenuRequiredParent($width:21px, $thick:2px, $interval:6px,
+$color:#000, $padding:0){
+	position:relative;
+	display: block;
+	margin: $thick+$interval+$padding $padding;
+
+	&, &:before, &:after{
+		width: $width;
+		height: $thick;
+		background-color: $color;
+	}
+
+	&:before, &:after{
+		content:'';
+		position:absolute;
+		left:0;
+	}
+
+	&:before{
+		top: -($thick+$interval);
+	}
+
+	&:after{
+		top:$thick+$interval;
+	}
+}
+// .hasBg{
+// 	background-color: pink;
+// }
+//기본형
+// .iconMenu{
+// 	@include iconMenuRequiredParent();
+// }
+//예시
+// .iconMenuEx1{
+// 	@include iconMenuRequiredParent($width:35px, $thick:3px, $interval:10px, 
+// 	$color:rgba(#000, 0.5), $padding:0);
+// }
+// .iconMenuEx2{
+// 	@include iconMenuRequiredParent($width:40px, $thick:5px, $interval:10px,
+// 	$color:#000, $padding:15px);
+// 	&, &:before, &:after{
+// 		box-shadow: 0 3px 4px 0 rgba(#000, 0.5);
+// 	}
+// }
+// .iconMenuEx3{
+// 	@include iconMenuRequiredParent($width:18px, $thick:2px, $interval:6px,
+// 	$color:#666, $padding:15px);
+// }
+// .buttonMenuEx3{
+// 	border-radius: 50%;
+// 	background-color: #eee;
+// }
+
+//더보기 아이콘
+// button{
+// 	margin:0;
+// 	padding:0;
+// 	background-color: transparent;
+// 	border:0;
+// }
+@mixin iconMoreRequiredParent($direction: 'vertical', $size: 4px,
+$interval: 4px, $color: #000, $padding: 0){
+	position:relative;
+	display: block;
+	margin: $size+$interval+$padding;
+
+	&, &:before, &:after{
+		width: $size;
+		height: $size;
+		border-radius:  50%;
+		background-color: $color;
+	}
+
+	&:before, &:after{
+		content:'';
+		position:absolute;
+	}
+
+	@if($direction == 'vertical'){
+		&:before{
+			top: -($size+$interval);
+			left:0;
+		}
+		&:after{
+			top:$size+$interval;
+			left:0;
+		}
+	} @else if($direction == 'horizontal'){
+		&:before{
+			top:0;
+			left: -($size+$interval);
+		}
+		&:after{
+			top:0;
+			left:$size+$interval;
+		}
+	}
+}
+// .hasBg{
+// 	background-color: pink;
+// }
+//기본형
+// .iconMore{
+// 	@include iconMoreRequiredParent();
+// }
+//예시
+// .iconMoreEx1{
+// 	@include iconMoreRequiredParent($direction: 'horizontal', $size: 4px, $interval: 10px,
+// 	$color: #000, $padding: 0);
+// }
+// .iconMoreEx2{
+// 	@include iconMoreRequiredParent($direction: 'vertical', $size: 10px, $interval: 10px,
+// 	$color: #000, $padding: 10px);
+// 	&, &:before, &:after{
+// 		box-shadow: 0 3px 4px 0 rgba(#000, 0.5);
+// 	}
+// }
+// .buttonMoreEx3{
+// 	border-radius: 50%;
+// 	background-color: #eee;
+// }
+// .iconMoreEx3{
+// 	@include iconMoreRequiredParent($direction: 'horizontal', $size: 5px,
+// 	$color: #444, $padding: 15px);
+// }
+
+
+
+//화면비율 
+//예 16:9 
+@mixin ratio($size, $ratio){
+	display:block;
+	width:$size;
+	height:$size*($ratio);
+}
+
+//글자 사이 bar
+@mixin divisionBar($width, $height, $backgroundColor, $margin, $top:0){
+	content: '';
+	display: inline-block;
+	position: relative;
+	top: $top;
+	left: 0;
+	z-index: 10;
+	margin: 0 $margin;
+	width: $width;
+	height: $height;
+	background: $backgroundColor;
+}
+
+// 투명도 transition
+@mixin transitionDefault($properties...) {
+  $transition: ();
+  $willChange: ();
+  @each $property in $properties {
+    // @debug "property: #{type-of($property)}";
+    $transition: append($transition, $property 0.2s ease-in-out, $separator: comma);
+    $willChange: append($willChange, $property, $separator: comma);
+  }
+  transition: $transition;
+  will-change: $willChange;
+}

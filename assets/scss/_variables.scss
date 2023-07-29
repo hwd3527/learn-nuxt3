@@ -1,0 +1,38 @@
+////변수////
+//색상
+$primary-color:#376be0;  //주색
+$sub-color:#273968;    //보조색
+$sub-color-type:#405ba0;    //보조색-2
+$subsecond-color:#6896EE;    //보조색2
+$point-color:#ff6501;   //포인트색
+$warning-color:#e60202; //위험색
+$black-color:#000;   //검정색 - 미묘하게 밝은 색을 사용하기도 하여서 따로 변수 지정
+$minor-color:#b8b9b9;
+
+$border-color:#dbdbdb; 
+
+//길이
+$default-width:1200px; 
+
+
+// Grid breakpoints
+$xs-down: 'max-width: 320px';
+$xsm-down: 'max-width: 479px';
+$sm-down: 'max-width: 575px';
+$md-down: 'max-width: 767px';
+$mld-down: 'max-width: 879px';
+$lg-down: 'max-width: 991px';
+$xl-down: 'max-width: 1199px';
+$xxl-down: 'max-width: 1399px';
+$xxxl-down: 'max-width: 1599px';
+$xxxxl-down: 'max-width: 1999px';
+$xs-up: 'min-width: 321px';
+$xsm-up: 'min-width: 480px';
+$sm-up: 'min-width: 576px';
+$md-up: 'min-width: 768px';
+$mld-up: 'min-width: 880px';
+$lg-up: 'min-width: 992px';
+$xl-up: 'min-width: 1200px';
+$xxl-up: 'min-width: 1400px';
+$xxxl-up: 'min-width: 1600px';
+$xxxxl-up: 'min-width: 2000px';
