@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { fetchProducts } from './api';
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   target: 'static',
+  router: {
+    base: '/learn-nuxt3/',
+  },
   head: {
     title: 'learn-nuxt3',
     htmlAttrs: {
