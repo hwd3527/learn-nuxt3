@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/25", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:25,name:"Sleek Plastic Mouse",price:"909.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

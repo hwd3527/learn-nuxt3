@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/0", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:0,name:"Refined Fresh Chicken",price:"209.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

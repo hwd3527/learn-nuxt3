@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/19", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:19,name:"Gorgeous Cotton Soap",price:"38.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

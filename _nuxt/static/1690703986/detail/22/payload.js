@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/22", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:22,name:"Intelligent Granite Chicken",price:"509.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

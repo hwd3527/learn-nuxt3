@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/13", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:13,name:"Refined Soft Towels",price:"723.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

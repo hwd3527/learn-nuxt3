@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/4", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:4,name:"Unbranded Rubber Chair",price:"458.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

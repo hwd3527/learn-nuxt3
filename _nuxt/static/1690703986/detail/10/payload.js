@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/10", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:10,name:"Small Fresh Soap",price:"777.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});

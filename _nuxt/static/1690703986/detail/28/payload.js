@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/detail/28", {data:[{}],fetch:{"data-v-35e4646e:0":{product:{id:28,name:"Fantastic Metal Soap",price:"75.00",imageUrl:"https:\u002F\u002Fpicsum.photos\u002F640\u002F480"}}},mutations:[]});
